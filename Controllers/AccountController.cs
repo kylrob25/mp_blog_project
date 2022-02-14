@@ -152,7 +152,7 @@ namespace KRoberts_Theatre_Blog.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new User { 
+                var user = new Member { 
                     UserName = model.Email,
                     Email = model.Email,
                     FirstName = model.FirstName,
@@ -375,7 +375,7 @@ namespace KRoberts_Theatre_Blog.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new User { UserName = model.Email, Email = model.Email };
+                var user = new Member { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {

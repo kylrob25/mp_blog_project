@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity;
 
 namespace KRoberts_Theatre_Blog.Models
 {
@@ -7,6 +8,7 @@ namespace KRoberts_Theatre_Blog.Models
         public BlogDatabaseContext()
             : base("BlogConnection", throwIfV1Schema: false)
         {
+            Database.SetInitializer(new DatabaseInitialiser());
         }
 
         public static BlogDatabaseContext Create()
