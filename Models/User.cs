@@ -18,7 +18,7 @@ namespace KRoberts_Theatre_Blog.Models
         public string FirstName { get; set; }
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
-        public DateTime RegistrationDate { get; set; }
+        public DateTime? RegistrationDate { get; set; }
         public bool Suspended { get; set; }
 
         private ApplicationUserManager userManager;
