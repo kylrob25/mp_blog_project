@@ -15,6 +15,7 @@ namespace KRoberts_Theatre_Blog.Models
             base.Seed(context);
 
             CreateRoles(context);
+            
             CreateTestAdmin(context);
             CreateTestModerator(context);
             CreateTestMember(context);
@@ -93,23 +94,58 @@ namespace KRoberts_Theatre_Blog.Models
 
         private void CreateTestMember(BlogDatabaseContext context)
         {
+            
+            var member = new Staff
+            {
+                UserName = "member@theatreblog.com",
+                Email = "member@theatreblog.com",
+                FirstName = "Kyle",
+                LastName = "Roberts",
+                StaffType = StaffType.Moderator
+            };
+            
             // Grabbing our manager
             var userManager = new UserManager<User>(new UserStore<User>(context));
 
             // Checking if the user exists
             if (userManager.FindByName("member@theatreblog.com") == null)
             {
-                var member = new Staff
-                {
-                    UserName = "member@theatreblog.com",
-                    Email = "member@theatreblog.com",
-                    FirstName = "Kyle",
-                    LastName = "Roberts",
-                    StaffType = StaffType.Moderator
-                };
                 userManager.Create(member, "8j3VRGqgyhQnVf6"); // Creating the user
                 userManager.AddToRole(member.Id, "Member"); // Assigning the role
             }
+            
+            var announcements = new Category() { Name = "Announcements" };
+            
+            // Adding to the table
+            context.Categories.Add(new Category() { Name = "News" });
+            context.Categories.Add(announcements);
+            context.Categories.Add(new Category() { Name = "Movies" });
+            context.Categories.Add(new Category() { Name = "Theatre" });
+
+            context.SaveChanges();
+
+            var post = new Post()
+            {
+                Title = "Test Post",
+                Category = announcements,
+                Content = "Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
+                          " Lorem Ipsum has been the industry's standard dummy text ever since the 1500s," +
+                          " when an unknown printer took a galley of type and scrambled it to make a type" +
+                          " specimen book. It has survived not only five centuries, but also the leap into " +
+                          "electronic typesetting, remaining essentially unchanged. It was popularised in the " +
+                          "1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more " +
+                          "recently with desktop publishing software like Aldus PageMaker including versions of " +
+                          "Lorem Ipsum.",
+                CreationDate = DateTime.Now,
+                PublishDate = DateTime.Now,
+                LastEditDate = DateTime.Now,
+                User = member
+            };
+
+            context.Posts.Add(post);
+
+            // Saving our changes
+            context.SaveChanges();
         }
     }
 }
