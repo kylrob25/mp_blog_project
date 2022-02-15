@@ -143,6 +143,20 @@ namespace KRoberts_Theatre_Blog.Models
             };
 
             context.Posts.Add(post);
+            
+            context.SaveChanges();
+
+            var comments = new List<Comment>();
+            var comment = new Comment()
+            {
+                Content = "BAd post",
+                PublishDate = DateTime.Now,
+                User = member,
+                Post = post
+            };
+            comments.Add(comment);
+
+            post.Comments = comments;
 
             // Saving our changes
             context.SaveChanges();
