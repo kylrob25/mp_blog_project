@@ -41,6 +41,8 @@ namespace KRoberts_Theatre_Blog.Models
         public int CategoryId { get; set; }
         public Category Category { get; set; }
         
+        public bool Published { get; set; }
+        
         public List<Comment> Comments { get; set; }
     }
 }
