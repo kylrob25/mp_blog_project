@@ -1,0 +1,51 @@
+﻿@model int[]
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Panel</h2>
+
+<hr/>
+
+<h3>Statistics</h3>
+
+<table class="table">
+    <tr>
+        <th>
+            Total Users
+        </th>
+        
+        <th>
+            Total Staff
+        </th>
+        
+        <th>
+            Total Members
+        </th>
+        
+        <th>
+            Total Suspended Users
+        </th>
+    </tr>
+    
+    <tr>
+        @foreach (var item in Model)
+        {
+        
+            <td>
+                @item
+            </td>
+        }
+    </tr>
+</table>
+
+<hr/>
+
+<p>
+    @Html.ActionLink("View Users", "ViewUsers", "Admin", new { @class = "btn btn-primary" })
+    @Html.ActionLink("View Posts", "ViewPosts", "Admin", new { @class = "btn btn-primary" })
+    @Html.ActionLink("View Categories", "ViewCategories", "Admin", new { @class = "btn btn-primary" })
+</p>
+

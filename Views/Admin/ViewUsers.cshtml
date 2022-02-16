@@ -1,0 +1,58 @@
+﻿@model IEnumerable<KRoberts_Theatre_Blog.Models.User>
+
+@{
+    ViewBag.Title = "Users";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Users</h2>
+
+<p>
+    @Html.ActionLink("Back", "Index", "Admin", new { @class = "btn btn-primary"})
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            Username
+        </th>
+        <th>
+            Surname
+        </th>
+        <th>
+            Forename
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            Suspended
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Suspended)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "DetailsUser", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>

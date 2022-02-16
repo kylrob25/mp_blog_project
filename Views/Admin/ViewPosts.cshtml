@@ -1,0 +1,70 @@
+﻿@model IEnumerable<KRoberts_Theatre_Blog.Models.Post>
+
+@{
+    ViewBag.Title = "ViewPosts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Posts</h2>
+
+<p>
+    @Html.ActionLink("Create", "CreatePost", "Admin", new {@class="btn btn-primary"})
+    @Html.ActionLink("Back", "Index", "Admin", new { @class = "btn btn-primary"})
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Category.Name)
+        </th>
+        <th>
+            Author
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreationDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PublishDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastEditDate)
+        </th>
+        <th>
+            Published
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreationDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PublishDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastEditDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Published)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditPost", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "DeletePost", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>

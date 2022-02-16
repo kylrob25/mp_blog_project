@@ -1,0 +1,34 @@
+﻿@model IEnumerable<KRoberts_Theatre_Blog.Models.Category>
+
+@{
+    ViewBag.Title = "ViewCategories";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Categories</h2>
+
+<p>
+    @Html.ActionLink("Create", "CreateCategory", "Admin", new { @class="btn btn-primary"})
+    @Html.ActionLink("Back", "Index", "Admin", new { @class = "btn btn-primary"})
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditCategory", new { id=item.Id }) |
+                @Html.ActionLink("Delete", "DeleteCategory", new { id=item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
