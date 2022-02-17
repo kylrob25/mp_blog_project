@@ -1,4 +1,5 @@
-﻿@using Microsoft.AspNet.Identity
+﻿@using System.Activities.Statements
+@using Microsoft.AspNet.Identity
 @using Microsoft.AspNet.Identity.Owin;
 @using KRoberts_Theatre_Blog.Models;
 
@@ -6,29 +7,24 @@
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
-    @Html.AntiForgeryToken()
+        @Html.AntiForgeryToken()
 
-<ul class="nav navbar-nav navbar-right">
-    <li>
-        @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-    </li>
-    @{
-        var userManager = HttpContext.Current.GetOwinContext().Get<ApplicationUserManager>();
-        var userId = User.Identity.GetUserId();
-        var user = userManager.FindById(userId);
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                @Html.ActionLink(User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>
 
-        if (user != null)
-        {
-            var staff = user as Staff;
-            if (staff != null) {
+            @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+            {
                 <li>
                     @Html.ActionLink("Panel", "Index", "Admin", routeValues: null, htmlAttributes: new { title = "Admin" })
                 </li>
             }
-        }
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Sign Out</a></li>
-    }
-</ul>
+            
+            <li>
+                <a href="javascript:document.getElementById('logoutForm').submit()">Sign Out</a>
+            </li>
+        </ul>
     }
 }
 else

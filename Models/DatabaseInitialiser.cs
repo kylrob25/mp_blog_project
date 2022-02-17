@@ -15,7 +15,7 @@ namespace KRoberts_Theatre_Blog.Models
             base.Seed(context);
 
             CreateRoles(context);
-            
+
             CreateTestAdmin(context);
             CreateTestModerator(context);
             CreateTestMember(context);
@@ -29,7 +29,8 @@ namespace KRoberts_Theatre_Blog.Models
                 var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
 
                 // Default roles
-                var roles = new string[] {
+                var roles = new string[]
+                {
                     "Admin",
                     "Moderator",
                     "Member"
@@ -94,16 +95,15 @@ namespace KRoberts_Theatre_Blog.Models
 
         private void CreateTestMember(BlogDatabaseContext context)
         {
-            
-            var member = new Staff
+            var member = new Member
             {
                 UserName = "member@theatreblog.com",
                 Email = "member@theatreblog.com",
                 FirstName = "Kyle",
                 LastName = "Roberts",
-                StaffType = StaffType.Moderator
+                TheatreType = TheatreType.Comedy
             };
-            
+
             // Grabbing our manager
             var userManager = new UserManager<User>(new UserStore<User>(context));
 
@@ -113,9 +113,9 @@ namespace KRoberts_Theatre_Blog.Models
                 userManager.Create(member, "8j3VRGqgyhQnVf6"); // Creating the user
                 userManager.AddToRole(member.Id, "Member"); // Assigning the role
             }
-            
+
             var announcements = new Category() { Name = "Announcements" };
-            
+
             // Adding to the table
             context.Categories.Add(new Category() { Name = "News" });
             context.Categories.Add(announcements);
@@ -143,13 +143,13 @@ namespace KRoberts_Theatre_Blog.Models
             };
 
             context.Posts.Add(post);
-            
+
             context.SaveChanges();
 
             var comments = new List<Comment>();
             var comment = new Comment()
             {
-                Content = "BAd post",
+                Content = "Bad post",
                 PublishDate = DateTime.Now,
                 User = member,
                 Post = post

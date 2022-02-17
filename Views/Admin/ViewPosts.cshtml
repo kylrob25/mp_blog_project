@@ -8,8 +8,7 @@
 <h2>Posts</h2>
 
 <p>
-    @Html.ActionLink("Create", "CreatePost", "Admin", new {@class="btn btn-primary"})
-    @Html.ActionLink("Back", "Index", "Admin", new { @class = "btn btn-primary"})
+    @Html.ActionLink("Back", "Index", "Admin", new { @class = "btn btn-primary" })
 </p>
 <table class="table">
     <tr>
@@ -37,7 +36,8 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model) {
+    @foreach (var item in Model)
+    {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Category.Name)

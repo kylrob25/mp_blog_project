@@ -10,15 +10,10 @@ namespace KRoberts_Theatre_Blog.Controllers
 {
     public class HomeController : Controller
     {
-
         public BlogDatabaseContext context = new BlogDatabaseContext();
-        
+
         public ActionResult Index()
         {
-            foreach (var post in context.Posts)
-            {
-                ViewBag.PostTitle = post.Title;
-            }
             return View();
         }
 

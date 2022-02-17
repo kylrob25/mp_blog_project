@@ -9,43 +9,66 @@
 
 <hr/>
 
-<h3>Statistics</h3>
+<h3>Users</h3>
 
 <table class="table">
     <tr>
         <th>
             Total Users
         </th>
-        
+
         <th>
             Total Staff
         </th>
-        
+
         <th>
             Total Members
         </th>
-        
+
         <th>
             Total Suspended Users
         </th>
     </tr>
-    
+
     <tr>
-        @foreach (var item in Model)
+        @for (var i = 0; i < 4; i++)
         {
-        
             <td>
-                @item
+                @Model[i]
             </td>
         }
     </tr>
 </table>
 
+@Html.ActionLink("View Users", "ViewUsers", "Admin", new { @class = "btn btn-primary" })
+
 <hr/>
 
+<h3>Posts</h3>
+
+<table class="table">
+    <tr>
+        <th>
+            Total Posts
+        </th>
+
+        <th>
+            Total Categories
+        </th>
+    </tr>
+
+    <tr>
+        @for (var i = 4; i < 6; i++)
+        {
+            <td>
+                @Model[i]
+            </td>
+        }
+    </tr>
+</table>
+
 <p>
-    @Html.ActionLink("View Users", "ViewUsers", "Admin", new { @class = "btn btn-primary" })
+    @Html.ActionLink("Create Post", "CreatePost", "Admin", new { @class = "btn btn-primary" })
     @Html.ActionLink("View Posts", "ViewPosts", "Admin", new { @class = "btn btn-primary" })
     @Html.ActionLink("View Categories", "ViewCategories", "Admin", new { @class = "btn btn-primary" })
 </p>
-

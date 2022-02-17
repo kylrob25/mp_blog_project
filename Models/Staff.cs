@@ -8,8 +8,7 @@ namespace KRoberts_Theatre_Blog.Models
 {
     public class Staff : User
     {
-        [Display(Name = "Staff Type")]
-        public StaffType StaffType { get; set; }
+        [Display(Name = "Staff Type")] public StaffType StaffType { get; set; }
     }
 
     public enum StaffType

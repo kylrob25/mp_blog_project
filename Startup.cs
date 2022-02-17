@@ -2,6 +2,7 @@
 using Owin;
 
 [assembly: OwinStartupAttribute(typeof(KRoberts_Theatre_Blog.Startup))]
+
 namespace KRoberts_Theatre_Blog
 {
     public partial class Startup

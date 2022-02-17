@@ -12,16 +12,13 @@ using System.ComponentModel.DataAnnotations;
 namespace KRoberts_Theatre_Blog.Models
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
-    public abstract class User : IdentityUser
+    public class User : IdentityUser
     {
-
-        [Display(Name = "First Name")]
-        public string FirstName { get; set; }
-        [Display(Name = "Last Name")]
-        public string LastName { get; set; }
+        [Display(Name = "First Name")] public string FirstName { get; set; }
+        [Display(Name = "Last Name")] public string LastName { get; set; }
         public DateTime? RegistrationDate { get; set; }
         public bool Suspended { get; set; }
-        
+
         public List<Post> Posts { get; set; }
         public List<Comment> Comments { get; set; }
 
