@@ -7,6 +7,7 @@ using KRoberts_Theatre_Blog.Models;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using System.Web;
+using KRoberts_Theatre_Blog.Models.ViewModels;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 
@@ -97,6 +98,13 @@ namespace KRoberts_Theatre_Blog.Controllers
             return View(context.Posts.ToList()); // Sending the page
         }
 
+        public ActionResult CreatePost()
+        {
+            ViewBag.CategoryId = new SelectList(context.Categories, "CategoryId", "Name");
+            return View();
+        }
+
+        [HttpGet]
         public ActionResult EditPost(int? id)
         {
             if (id == null)
@@ -104,39 +112,49 @@ namespace KRoberts_Theatre_Blog.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var post = context.Posts.Find(id);
+            var post = context.Posts.Include(p => p.Category).SingleOrDefault(p => p.Id == id);
             if (post == null)
             {
                 return HttpNotFound();
             }
 
+            var editPost = new EditPostViewModel()
+            {
+                Id = post.Id,
+                Title = post.Title,
+                Content = post.Content,
+                Published = post.Published,
+                CategoryId = post.CategoryId
+            };
+
             ViewBag.CategoryId = new SelectList(context.Categories, "CategoryId", "Name", post.CategoryId);
 
-            return View(post);
+            return View(editPost);
         }
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditPost([Bind(Include = "Id,Title,Content")]Post post)
+        public ActionResult EditPost(int id, [Bind(Include ="Title,Content,CategoryId,Published")] EditPostViewModel model)
         {
-
             if (ModelState.IsValid)
             {
-                if (post.Published)
-                {
-                    post.PublishDate = DateTime.Now;
-                }
-
-                post.UserId = User.Identity.GetUserId();
+                var post = context.Posts.Find(id);
+                post.Title = model.Title;
+                post.Content = model.Content;
+                post.CategoryId = model.CategoryId;
+                post.Published = model.Published;
+                post.LastEditDate = DateTime.Now;
 
                 context.Entry(post).State = EntityState.Modified;
             
                 context.SaveChanges();
+
+                return RedirectToAction("ViewPosts");
             }
 
-            ViewBag.CategoryId = new SelectList(context.Categories, "CategoryId", "Name", post.CategoryId);
+            ViewBag.CategoryId = new SelectList(context.Categories, "CategoryId", "Name", model.CategoryId);
 
-            return View(post);
+            return View(model);
         }
 
         public ActionResult DeletePost(int? id)

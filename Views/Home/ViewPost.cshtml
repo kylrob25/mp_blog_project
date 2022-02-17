@@ -1,0 +1,65 @@
+﻿@model KRoberts_Theatre_Blog.Models.Post
+
+@{
+    ViewBag.Title = "ViewPost";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<hr/>
+
+<h1>@Model.Title</h1>
+<h4 style="font-style: italic">PUBLISHED ON @Model.PublishDate.ToString() By @Model.User.UserName</h4>
+<hr/>
+<div class="row">
+    <div class="col-sm-8 text-justify">
+        <p>
+            @Model.Content
+        </p>
+    </div>
+</div>
+<hr>
+
+<h4 style="font-style: italic">CATEGORY @Model.Category.Name</h4>
+
+<hr/>
+
+<h4 style="font-style: italic">COMMENTS</h4>
+
+@{
+    <div class="container-fluid">
+        @if (!Model.Comments.Any())
+                    {
+                        <h5>There are no comments.</h5>
+                    }
+                    else
+                    {
+                        <hr/>
+                        
+                        foreach (var comment in Model.Comments)
+                        {
+                            <h5 style="font-style: italic">
+                                @comment.User.UserName
+                            </h5>
+                            <h5 style="font-style: italic">
+                                @comment.PublishDate.ToString()
+                            </h5>
+                            <h6>
+                                @comment.Content
+                            </h6>
+                            if (Request.IsAuthenticated)
+                            {
+                                if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+                                {
+                                    <p>
+                                        @Html.ActionLink("Delete", "DeleteComment", "Home", new { id = @comment.Id }) |
+                                        @Html.ActionLink("Suspend", "SuspendUser", "Home", new { id = @comment.Id })
+                                    </p>
+                                }
+                            }
+                            <hr/>
+                        }
+                    }
+    </div>   
+}
+
+

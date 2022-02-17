@@ -1,3 +1,42 @@
-﻿@{
+﻿@model IEnumerable<KRoberts_Theatre_Blog.Models.Post>
+
+@{
     ViewBag.Title = "Home Page";
 }
+
+<hr/>
+<br/>
+
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="form-group">
+            <div class="col-sm-8">
+                <p> Posts by category @Html.TextBox("category") <input type="submit" value="Search" class="btn btn-primary"/></p>
+            </div>
+        </div>
+    </div>
+}
+
+<hr/>
+
+<div class="container-fluid">
+    <h2 class="text-center">
+        @foreach (var post in Model)
+        {
+            <h1>@Html.ActionLink(@post.Title, "ViewPost", "Home", new  {id=@post.Id})</h1>
+            <h4 style="font-style: italic">PUBLISHED ON @Html.ActionLink(@post.PublishDate.ToString(), "ViewPost", "Post", new {id=@post.Id}) By @post.User.UserName</h4>
+            <hr/>
+            <div class="row">
+                <div class="col-sm-8 text-justify">
+                    <p>
+                        @post.Content
+                    </p>
+                </div>
+            </div>
+            <hr>
+            <h4 style="font-style: italic">CATEGORY @Html.ActionLink(@post.Category.Name, "Index", "Home", new {category=@post.Category.Name})</h4>
+            <hr/>
+        }
+    </h2>
+</div>

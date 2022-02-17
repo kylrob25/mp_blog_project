@@ -115,9 +115,10 @@ namespace KRoberts_Theatre_Blog.Models
             }
 
             var announcements = new Category() { Name = "Announcements" };
+            var news = new Category() { Name = "News" };
 
             // Adding to the table
-            context.Categories.Add(new Category() { Name = "News" });
+            context.Categories.Add(news);
             context.Categories.Add(announcements);
             context.Categories.Add(new Category() { Name = "Movies" });
             context.Categories.Add(new Category() { Name = "Theatre" });
@@ -141,8 +142,27 @@ namespace KRoberts_Theatre_Blog.Models
                 LastEditDate = DateTime.Now,
                 User = member
             };
+            
+            var post1 = new Post()
+            {
+                Title = "Test Post 1",
+                Category = news,
+                Content = "Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
+                          " Lorem Ipsum has been the industry's standard dummy text ever since the 1500s," +
+                          " when an unknown printer took a galley of type and scrambled it to make a type" +
+                          " specimen book. It has survived not only five centuries, but also the leap into " +
+                          "electronic typesetting, remaining essentially unchanged. It was popularised in the " +
+                          "1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more " +
+                          "recently with desktop publishing software like Aldus PageMaker including versions of " +
+                          "Lorem Ipsum.",
+                CreationDate = DateTime.Now,
+                PublishDate = DateTime.Now,
+                LastEditDate = DateTime.Now,
+                User = member
+            };
 
             context.Posts.Add(post);
+            context.Posts.Add(post1);
 
             context.SaveChanges();
 
