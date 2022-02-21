@@ -233,7 +233,9 @@ namespace KRoberts_Theatre_Blog.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeletePostConfirm(int id)
         {
-            var post = context.Posts.Find(id); // Grabbing our post from the table
+            var post = context.Posts.Where(p => p.Id == id).Include(p => p.Comments).Single(); // Grabbing our post from the table
+            var comments = post.Comments;
+            context.Comments.RemoveRange(comments); // Removing the comments
             context.Posts.Remove(post); // Removing the post from the table
             context.SaveChanges(); // Saving our changes
             return RedirectToAction("ViewPosts"); // Redirecting to the posts page
