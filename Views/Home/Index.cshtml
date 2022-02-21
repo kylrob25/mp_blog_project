@@ -20,33 +20,40 @@
 
 <hr/>
 
-<div class="container-fluid">
-    <h2 class="text-center">
-        @if (!@Model.Any(p => p.Published)) {
-            <p>There are no posts.</p>
-        }
-        else
-        {
-            foreach (var post in Model)
+<div class="row">
+    <div class="container-fluid col-md-8">
+        <h2 class="text-center">
+            @if (!@Model.Any(p => p.Published)) {
+                <p>There are no posts.</p>
+            }
+            else
             {
-                if (@post.Published)
+                foreach (var post in Model)
                 {
-                    <h1>@Html.ActionLink(@post.Title, "View", "Post", new { id = @post.Id }, null)</h1>
-                    <h4 style="font-style: italic">PUBLISHED ON @Html.ActionLink(@post.PublishDate.ToString(), "View", "Post", new { id = @post.Id }, null) By @post.User.UserName</h4>
-                    <hr/>
-                    <div class="row">
-                        <div class="col-sm-8 text-justify">
-                            <p>
-                                @post.Content
-                            </p>
+                    if (@post.Published)
+                    {
+                        <h1>@Html.ActionLink(@post.Title, "View", "Post", new { id = @post.Id }, null)</h1>
+                        <h4 style="font-style: italic">PUBLISHED ON @Html.ActionLink(@post.PublishDate.ToString(), "View", "Post", new { id = @post.Id }, null) By @post.User.UserName</h4>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-sm-12 text-justify">
+                                <p>
+                                    @post.Content
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                    <hr>
-                    <h4 style="font-style: italic">CATEGORY @Html.ActionLink(@post.Category.Name, "Index", "Home", new { category = @post.Category.Name }, null)</h4>
-                    <hr/>
+                        <hr>
+                        <h4 style="font-style: italic">CATEGORY @Html.ActionLink(@post.Category.Name, "Index", "Home", new { category = @post.Category.Name }, null)</h4>
+                        <hr/>
+                    }
                 }
             }
-        }
         </h2>
+    </div>
+    <div class="container-fluid col-md-4">
+        <a class="twitter-timeline" href="https://twitter.com/CofGCollege?ref_src=twsrc%5Etfw">Tweets by CofGCollege</a>
+        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    </div>
 </div>
+
 
