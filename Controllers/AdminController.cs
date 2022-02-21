@@ -46,63 +46,7 @@ namespace KRoberts_Theatre_Blog.Controllers
             };
             return View(statistics); // Sending the page
         }
-
-        public ActionResult ViewUsers()
-        {
-            return View(context.Users.ToList()); // Sending the page
-        }
-
-        public ActionResult DetailsUser(string id)
-        {
-            // Ensuring the id is not null
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            var user = context.Users.Find(id); // Grabbing the user from the table and ensuring its not null
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-
-            return View(user); // Sending the page
-        }
-
-        public ActionResult PromoteUser(string id)
-        {
-            // Ensuring the id is not null
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            var user = context.Users.Find(id); // Grabbing our user from the table and ensuring it is not null
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-
-            return View(user); // Returning our view
-        }
-
-        public ActionResult SuspendUser(string id)
-        {
-            // Ensuring the id is not null
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            var user = context.Users.Find(id); // Grabbing our user from the table and ensuring it is not null
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-
-            return View(user); // Returning our view
-        }
-
+        
         public ActionResult ViewPosts()
         {
             var posts = context.Posts.ToList(); // Grabbing our posts from the table

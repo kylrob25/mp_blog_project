@@ -172,6 +172,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PostController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -215,6 +216,9 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Views\Post\DeleteComment.cshtml" />
     <Content Include="Views\Post\View.cshtml" />
+    <Content Include="Views\User\Details.cshtml" />
+    <Content Include="Views\User\Promote.cshtml" />
+    <Content Include="Views\User\All.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -249,16 +253,13 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Admin\DetailsUser.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Admin\ViewUsers.cshtml" />
     <Content Include="Views\Admin\ViewPosts.cshtml" />
     <Content Include="Views\Admin\ViewCategories.cshtml" />
     <Content Include="Views\Admin\EditCategory.cshtml" />
     <Content Include="Views\Admin\DeleteCategory.cshtml" />
     <Content Include="Views\Admin\CreateCategory.cshtml" />
     <Content Include="Views\Admin\DeletePost.cshtml" />
-    <Content Include="Views\Admin\PromoteUser.cshtml" />
     <Content Include="Views\Admin\EditPost.cshtml" />
     <Content Include="Views\Admin\CreatePost.cshtml" />
     <Content Include="Views\Post\CreateComment.cshtml" />

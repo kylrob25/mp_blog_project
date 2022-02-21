@@ -52,11 +52,9 @@
                                 {
                                     <p>
                                         @Html.ActionLink("Delete", "DeleteComment", "Post", new { id = @comment.Id }, null) |
-                                        @Html.ActionLink("Suspend", "SuspendUser", "Admin", new { id = @comment.UserId }, null)
+                                        @Html.ActionLink("Suspend", "Suspend", "User", new { id = @comment.UserId }, null)
                                     </p>
                                 }
-                                
-                                
                             }
                             <hr/>
                         }
