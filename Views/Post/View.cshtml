@@ -1,7 +1,7 @@
 ﻿@model KRoberts_Theatre_Blog.Models.Post
 
 @{
-    ViewBag.Title = "ViewPost";
+    ViewBag.Title = "View";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -23,9 +23,9 @@
 
 <hr/>
 
-<h4 style="font-style: italic">COMMENTS</h4>
-
-@{
+@{  
+    <h4 style="font-style: italic">COMMENTS</h4>
+    
     <div class="container-fluid">
         @if (!Model.Comments.Any())
                     {
@@ -51,15 +51,21 @@
                                 if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
                                 {
                                     <p>
-                                        @Html.ActionLink("Delete", "DeleteComment", "Home", new { id = @comment.Id }) |
-                                        @Html.ActionLink("Suspend", "SuspendUser", "Home", new { id = @comment.Id })
+                                        @Html.ActionLink("Delete", "DeleteComment", "Post", new { id = @comment.Id }, null) |
+                                        @Html.ActionLink("Suspend", "SuspendUser", "Admin", new { id = @comment.UserId }, null)
                                     </p>
                                 }
+                                
+                                
                             }
                             <hr/>
                         }
                     }
-    </div>   
+    </div>  
+    
+    <hr/>
+    
+    <h4 style="font-style: italic">@Html.ActionLink("LEAVE A REPLY", "CreateComment", "Post", new {id=@Model.Id}, null)</h4>
 }
 
 

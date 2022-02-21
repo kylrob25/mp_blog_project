@@ -36,26 +36,6 @@ namespace KRoberts_Theatre_Blog.Controllers
                 .Where(post => post.Category.Name.Equals(category.Trim())).OrderByDescending(post => post.PublishDate);
             return View(posts.ToList());
         }
-        
-        public ActionResult ViewPost(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            var post = _context.Posts.Find(id);
-            if (post == null)
-            {
-                return HttpNotFound();
-            }
-
-            post.Category = _context.Categories.Find(post.CategoryId);
-            post.User = _context.Users.Find(post.UserId);
-            post.Comments = _context.Comments.Where(comment => comment.PostId == post.Id).Include(comment => comment.User).OrderByDescending(comment => comment.PublishDate).ToList();
-            return View(post);
-        }
-
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

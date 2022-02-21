@@ -20,13 +20,11 @@ namespace KRoberts_Theatre_Blog.Models
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime? CreationDate { get; set; }
-
-        [Required]
+        
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime? PublishDate { get; set; }
-
-        [Required]
+        
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime? LastEditDate { get; set; }

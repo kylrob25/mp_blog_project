@@ -86,6 +86,23 @@ namespace KRoberts_Theatre_Blog.Controllers
             return View(user); // Returning our view
         }
 
+        public ActionResult SuspendUser(string id)
+        {
+            // Ensuring the id is not null
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var user = context.Users.Find(id); // Grabbing our user from the table and ensuring it is not null
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(user); // Returning our view
+        }
+
         public ActionResult ViewPosts()
         {
             var posts = context.Posts.ToList(); // Grabbing our posts from the table
@@ -102,6 +119,37 @@ namespace KRoberts_Theatre_Blog.Controllers
         {
             ViewBag.CategoryId = new SelectList(context.Categories, "CategoryId", "Name");
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreatePost([Bind(Include = "Id,Title,Content,CategoryId,Published")]CreatePostViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var post = new Post
+                {
+                    Title = model.Title,
+                    Content = model.Content,
+                    CategoryId = model.CategoryId,
+                    Published = model.Published,
+                    CreationDate = DateTime.Now,
+                    UserId = User.Identity.GetUserId()
+                };
+
+                if (post.Published)
+                {
+                    post.PublishDate = DateTime.Now;
+                    post.LastEditDate = DateTime.Now;
+                }
+
+                context.Posts.Add(post);
+                context.SaveChanges();
+
+                return RedirectToAction("ViewPosts", "Admin");
+            }
+            ViewBag.CategoryId = new SelectList(context.Categories, "CategoryId", "Name");
+            return View(model);
         }
 
         [HttpGet]
@@ -142,7 +190,14 @@ namespace KRoberts_Theatre_Blog.Controllers
                 post.Title = model.Title;
                 post.Content = model.Content;
                 post.CategoryId = model.CategoryId;
+
+                if (!post.Published && model.Published)
+                {
+                    post.PublishDate = DateTime.Now;
+                }
+                
                 post.Published = model.Published;
+
                 post.LastEditDate = DateTime.Now;
 
                 context.Entry(post).State = EntityState.Modified;
@@ -222,6 +277,7 @@ namespace KRoberts_Theatre_Blog.Controllers
             return View(category); // Sending the page
         }
 
+        [HttpPost]
         public ActionResult EditCategory([Bind(Include = "CategoryId,Name")] Category category)
         {
             if (!ModelState.IsValid) return View(category);
