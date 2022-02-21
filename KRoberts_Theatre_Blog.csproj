@@ -219,6 +219,7 @@
     <Content Include="Views\User\Details.cshtml" />
     <Content Include="Views\User\Promote.cshtml" />
     <Content Include="Views\User\All.cshtml" />
+    <Content Include="Views\User\Suspend.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

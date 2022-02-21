@@ -63,7 +63,10 @@
     
     <hr/>
     
-    <h4 style="font-style: italic">@Html.ActionLink("LEAVE A REPLY", "CreateComment", new {id=@Model.Id}, null)</h4>
+    if (Request.IsAuthenticated)
+    {
+        <h4 style="font-style: italic">@Html.ActionLink("LEAVE A REPLY", "CreateComment", new { id = @Model.Id }, null)</h4>
+    }
 }
 
 

@@ -44,6 +44,19 @@ namespace KRoberts_Theatre_Blog.Controllers
         [HttpGet]
         public ActionResult CreateComment(int? id)
         {
+            var userId = User.Identity.GetUserId();
+            var user = _context.Users.Find(userId);
+            if (user == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            // If the user suspended we do not allow them to make a comment
+            if (user.Suspended)
+            {
+                return RedirectToAction("View", new {id = id});
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

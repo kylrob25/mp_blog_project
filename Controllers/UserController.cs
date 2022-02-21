@@ -1,6 +1,7 @@
 ﻿using KRoberts_Theatre_Blog.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -68,6 +69,17 @@ namespace KRoberts_Theatre_Blog.Controllers
             }
 
             return View(user); // Returning our view
+        }
+
+        [HttpPost, ActionName("Suspend")]
+        [ValidateAntiForgeryToken]
+        public ActionResult SuspendConfirm(string id)
+        {
+            var user = _context.Users.Find(id);
+            user.Suspended = !user.Suspended;
+            _context.Entry(user).State = EntityState.Modified;
+            _context.SaveChanges();
+            return RedirectToAction("Details", new {id = id});
         }
     }
 }

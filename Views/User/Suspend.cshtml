@@ -1,13 +1,20 @@
 ﻿@model KRoberts_Theatre_Blog.Models.User
 
 @{
-    ViewBag.Title = "Promote User";
+    ViewBag.Title = "Suspend User";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Promote User</h2>
+<h2>Suspend User</h2>
 
-<h3>Are you sure you want to promote this user?</h3>
+@if (@Model.Suspended)
+{
+    <h3>Are you sure you want to remove this user's suspension?</h3>
+}
+else
+{
+    <h3>Are you sure you want to suspend this user?</h3>
+}
 <div>
     <h4>
         @Html.DisplayFor(model => model.UserName)
