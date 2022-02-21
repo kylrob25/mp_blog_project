@@ -5,23 +5,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>User Details</h2>
+<h2>@Model.UserName</h2>
 
 <div>
     <hr/>
     <dl class="dl-horizontal">
         <dt>
-            Username
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UserName)
-        </dd>
-
-        <dt>
             Surname
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.FirstName)
         </dd>
@@ -29,7 +20,6 @@
         <dt>
             Forename
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.LastName)
         </dd>
@@ -37,7 +27,6 @@
         <dt>
             @Html.DisplayNameFor(model => model.Email)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Email)
         </dd>
@@ -45,7 +34,6 @@
         <dt>
             Registration Date
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.RegistrationDate)
         </dd>
@@ -57,17 +45,10 @@
         <dd>
             @Html.DisplayFor(model => model.Suspended)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PhoneNumber)
-        </dd>
-
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Back", "ViewUsers", "Admin", new { @class = "btn btn-primary" })
+    @Html.ActionLink("Promote", "PromoteUser",  new {id = @Model.Id}, new { @class = "btn btn-primary" }) |
+    @Html.ActionLink("Suspend", "SuspendUser",  new {id = @Model.Id}, new { @class = "btn btn-primary" }) |
+    @Html.ActionLink("Back", "ViewUsers",  null, new { @class = "btn btn-primary" })
 </p>

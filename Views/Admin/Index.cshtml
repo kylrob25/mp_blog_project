@@ -40,7 +40,7 @@
     </tr>
 </table>
 
-@Html.ActionLink("View Users", "ViewUsers", "Admin", new { @class = "btn btn-primary" })
+@Html.ActionLink("View Users", "ViewUsers", null, new { @class = "btn btn-primary" })
 
 <hr/>
 
@@ -68,7 +68,7 @@
 </table>
 
 <p>
-    @Html.ActionLink("Create Post", "CreatePost", "Admin", new { @class = "btn btn-primary" })
-    @Html.ActionLink("View Posts", "ViewPosts", "Admin", new { @class = "btn btn-primary" })
-    @Html.ActionLink("View Categories", "ViewCategories", "Admin", new { @class = "btn btn-primary" })
+    @Html.ActionLink("Create Post", "CreatePost",  null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("View Posts", "ViewPosts",  null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("View Categories", "ViewCategories",  null, new { @class = "btn btn-primary" })
 </p>

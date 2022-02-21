@@ -8,7 +8,7 @@
 <h2>Users</h2>
 
 <p>
-    @Html.ActionLink("Back", "Index", "Admin", new { @class = "btn btn-primary" })
+    @Html.ActionLink("Back", "Index", null, new { @class = "btn btn-primary" })
 </p>
 
 <table class="table">
@@ -50,21 +50,7 @@
                 @Html.DisplayFor(modelItem => item.Role)
             </td>
             <td>
-                @if (Request.IsAuthenticated)
-                {
-                    if (User.IsInRole("Admin"))
-                    {
-                        @Html.ActionLink("Details", "DetailsUser", new { id = item.Id })
-                        ;
-                        <br/>
-                        @Html.ActionLink("Promote", "PromoteUser", new { id = item.Id })
-                        ;
-                    }
-                    else
-                    {
-                        @Html.ActionLink("Details", "DetailsUser", new { id = item.Id })
-                    }
-                }
+                @Html.ActionLink("Details", "DetailsUser", new { id = item.Id })
             </td>
         </tr>
     }
