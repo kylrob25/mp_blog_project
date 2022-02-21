@@ -59,13 +59,12 @@ namespace KRoberts_Theatre_Blog.Models
             // Checking if the user exists
             if (userManager.FindByName("admin@theatreblog.com") == null)
             {
-                var admin = new Staff
+                var admin = new User
                 {
                     UserName = "admin@theatreblog.com",
                     Email = "admin@theatreblog.com",
                     FirstName = "Kyle",
-                    LastName = "Roberts",
-                    StaffType = StaffType.Admin
+                    LastName = "Roberts"
                 };
                 userManager.Create(admin, "8j3VRGqgyhQnVf6"); // Creating the user
                 userManager.AddToRole(admin.Id, "Admin"); // Assigning the role
@@ -80,13 +79,12 @@ namespace KRoberts_Theatre_Blog.Models
             // Checking if the user exists
             if (userManager.FindByName("moderator@theatreblog.com") == null)
             {
-                var moderator = new Staff
+                var moderator = new User
                 {
                     UserName = "moderator@theatreblog.com",
                     Email = "moderator@theatreblog.com",
                     FirstName = "Kyle",
-                    LastName = "Roberts",
-                    StaffType = StaffType.Moderator
+                    LastName = "Roberts"
                 };
                 userManager.Create(moderator, "8j3VRGqgyhQnVf6"); // Creating the user
                 userManager.AddToRole(moderator.Id, "Moderator"); // Assigning the role
@@ -95,13 +93,12 @@ namespace KRoberts_Theatre_Blog.Models
 
         private void CreateTestMember(BlogDatabaseContext context)
         {
-            var member = new Member
+            var member = new User
             {
                 UserName = "member@theatreblog.com",
                 Email = "member@theatreblog.com",
                 FirstName = "Kyle",
-                LastName = "Roberts",
-                TheatreType = TheatreType.Comedy
+                LastName = "Roberts"
             };
 
             // Grabbing our manager

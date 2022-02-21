@@ -11,15 +11,17 @@ namespace KRoberts_Theatre_Blog.Controllers
 {
     public class UserController : Controller
     {
-        // GET: User
         private readonly BlogDatabaseContext _context = new BlogDatabaseContext();
 
-        // GET
+        [Authorize(Roles = "Admin,Moderator")]
+        [HttpGet]
         public ActionResult All()
         {
             return View(_context.Users.ToList());
         }
 
+        [Authorize(Roles = "Admin,Moderator")]
+        [HttpGet]
         public ActionResult Details(string id)
         {
             // Ensuring the id is not null
@@ -37,6 +39,8 @@ namespace KRoberts_Theatre_Blog.Controllers
             return View(user); // Sending the page
         }
 
+        [Authorize(Roles = "Admin,Moderator")]
+        [HttpGet]
         public ActionResult Promote(string id)
         {
             // Ensuring the id is not null
@@ -51,9 +55,31 @@ namespace KRoberts_Theatre_Blog.Controllers
                 return HttpNotFound();
             }
 
+            if (user.Role == "Admin")
+            {
+                return RedirectToAction("Details", new { id = id });
+            }
+
             return View(user); // Returning our view
         }
 
+        [Authorize(Roles = "Admin,Moderator")]
+        [HttpPost, ActionName("Promote")]
+        [ValidateAntiForgeryToken]
+        public ActionResult PromoteConfirm(string id)
+        {
+            var user = _context.Users.Find(id);
+            if (!user.IsStaff)
+            {
+                user.UpdateRole("Moderator");
+                _context.Entry(user).State = EntityState.Modified;
+                _context.SaveChanges();
+            }
+            return RedirectToAction("Details", new {id = id});
+        }
+
+        [Authorize(Roles = "Admin,Moderator")]
+        [HttpGet]
         public ActionResult Suspend(string id)
         {
             // Ensuring the id is not null
@@ -71,6 +97,7 @@ namespace KRoberts_Theatre_Blog.Controllers
             return View(user); // Returning our view
         }
 
+        [Authorize(Roles = "Admin,Moderator")]
         [HttpPost, ActionName("Suspend")]
         [ValidateAntiForgeryToken]
         public ActionResult SuspendConfirm(string id)

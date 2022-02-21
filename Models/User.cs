@@ -21,20 +21,37 @@ namespace KRoberts_Theatre_Blog.Models
 
         public List<Post> Posts { get; set; }
         public List<Comment> Comments { get; set; }
+        
+        public bool IsStaff => Role != "Member";
 
-        private ApplicationUserManager userManager;
+        private ApplicationUserManager _userManager;
 
         public string Role
         {
             get
             {
-                if (userManager == null)
+                if (_userManager == null)
                 {
-                    userManager = HttpContext.Current.GetOwinContext().Get<ApplicationUserManager>();
+                    _userManager = HttpContext.Current.GetOwinContext().Get<ApplicationUserManager>();
                 }
 
-                return userManager.GetRoles(Id).Single();
+                return _userManager.GetRoles(Id).Single();
             }
+        }
+
+        public void UpdateRole(string roleString)
+        {
+            if (_userManager == null)
+            {
+                _userManager = HttpContext.Current.GetOwinContext().Get<ApplicationUserManager>();
+            }
+
+            foreach (var role in _userManager.GetRoles(Id))
+            {
+                _userManager.RemoveFromRole(Id, role);
+            }
+                
+            _userManager.AddToRole(Id, roleString);
         }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)

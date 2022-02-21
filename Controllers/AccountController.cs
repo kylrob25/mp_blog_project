@@ -144,14 +144,14 @@ namespace KRoberts_Theatre_Blog.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new Member
+                var user = new User()
                 {
                     UserName = model.Email,
                     Email = model.Email,
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     RegistrationDate = DateTime.Now,
-                    Suspended = false,
+                    Suspended = false
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -383,7 +383,7 @@ namespace KRoberts_Theatre_Blog.Controllers
                     return View("ExternalLoginFailure");
                 }
 
-                var user = new Member { UserName = model.Email, Email = model.Email };
+                var user = new User() { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
