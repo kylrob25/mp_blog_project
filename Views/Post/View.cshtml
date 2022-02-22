@@ -19,7 +19,7 @@
 </div>
 <hr>
 
-<h4 style="font-style: italic">CATEGORY @Model.Category.Name</h4>
+<h4 style="font-style: italic">CATEGORY @Html.ActionLink(@Model.Category.Name, "View", "Category", new {id = @Model.CategoryId}, null)</h4>
 
 <hr/>
 

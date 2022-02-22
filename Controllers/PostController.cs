@@ -14,7 +14,7 @@ namespace KRoberts_Theatre_Blog.Controllers
     public class PostController : Controller
     {
         private readonly BlogDatabaseContext _context = new BlogDatabaseContext();
-
+        
         public ActionResult Index()
         {
             return RedirectToAction("Index", "Home");

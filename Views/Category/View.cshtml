@@ -1,8 +1,9 @@
 ﻿@model IEnumerable<KRoberts_Theatre_Blog.Models.Post>
 
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Category";
 }
+
 
 <div class="row">
     <div class="container-fluid col-md-8">
@@ -45,15 +46,16 @@
                         </div>
                         <hr>
                         <h4 style="font-style: italic">CATEGORY @Html.ActionLink(@post.Category.Name, "View", "Category", new { id = @post.CategoryId }, null)</h4>
+                        <hr/>
                     }
                 }
             }
         </h2>
     </div>
     <div class="container-fluid col-md-4">
-        <a class="twitter-timeline" href="https://twitter.com/CofGCollege?ref_src=twsrc%5Etfw">Tweets by CofGCollege</a>
-        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-    </div>
+            <a class="twitter-timeline" href="https://twitter.com/CofGCollege?ref_src=twsrc%5Etfw">Tweets by CofGCollege</a>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
 </div>
 
 

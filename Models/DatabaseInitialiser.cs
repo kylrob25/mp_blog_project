@@ -29,7 +29,7 @@ namespace KRoberts_Theatre_Blog.Models
                 var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
 
                 // Default roles
-                var roles = new string[]
+                var roles = new[]
                 {
                     "Admin",
                     "Moderator",
@@ -37,9 +37,8 @@ namespace KRoberts_Theatre_Blog.Models
                 };
 
                 // Ensuring our roles are created
-                for (int i = 0; i < roles.Length; i++)
+                foreach (var role in roles)
                 {
-                    var role = roles[i];
                     if (!roleManager.RoleExists(role))
                     {
                         roleManager.Create(new IdentityRole(role));
@@ -113,67 +112,58 @@ namespace KRoberts_Theatre_Blog.Models
 
             var announcements = new Category() { Name = "Announcements" };
             var news = new Category() { Name = "News" };
+            var movies = new Category() { Name = "Movies" };
+            var theatre = new Category() { Name = "Theatre" };
+
+            var categories = new[]
+            {
+                announcements,
+                news,
+                movies,
+                theatre
+            };
 
             // Adding to the table
-            context.Categories.Add(news);
-            context.Categories.Add(announcements);
-            context.Categories.Add(new Category() { Name = "Movies" });
-            context.Categories.Add(new Category() { Name = "Theatre" });
+            context.Categories.AddRange(categories);
 
             context.SaveChanges();
 
-            var post = new Post()
+            var random = new Random();
+
+            for (var i = 1; i < 10; i++)
             {
-                Title = "Test Post",
-                Category = announcements,
-                Content = "Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
-                          " Lorem Ipsum has been the industry's standard dummy text ever since the 1500s," +
-                          " when an unknown printer took a galley of type and scrambled it to make a type" +
-                          " specimen book. It has survived not only five centuries, but also the leap into " +
-                          "electronic typesetting, remaining essentially unchanged. It was popularised in the " +
-                          "1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more " +
-                          "recently with desktop publishing software like Aldus PageMaker including versions of " +
-                          "Lorem Ipsum.",
-                CreationDate = DateTime.Now,
-                PublishDate = DateTime.Now,
-                LastEditDate = DateTime.Now,
-                User = member
-            };
-            
-            var post1 = new Post()
-            {
-                Title = "Test Post 1",
-                Category = news,
-                Content = "Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
-                          " Lorem Ipsum has been the industry's standard dummy text ever since the 1500s," +
-                          " when an unknown printer took a galley of type and scrambled it to make a type" +
-                          " specimen book. It has survived not only five centuries, but also the leap into " +
-                          "electronic typesetting, remaining essentially unchanged. It was popularised in the " +
-                          "1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more " +
-                          "recently with desktop publishing software like Aldus PageMaker including versions of " +
-                          "Lorem Ipsum.",
-                CreationDate = DateTime.Now,
-                PublishDate = DateTime.Now,
-                LastEditDate = DateTime.Now,
-                User = member
-            };
+                var post = new Post()
+                {
+                    Title = "Post #" + i,
+                    Category = categories[random.Next(0, categories.Length)],
+                    Content = "Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
+                              " Lorem Ipsum has been the industry's standard dummy text ever since the 1500s," +
+                              " when an unknown printer took a galley of type and scrambled it to make a type" +
+                              " specimen book. It has survived not only five centuries, but also the leap into " +
+                              "electronic typesetting, remaining essentially unchanged. It was popularised in the " +
+                              "1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more " +
+                              "recently with desktop publishing software like Aldus PageMaker including versions of " +
+                              "Lorem Ipsum.",
+                    CreationDate = DateTime.Now,
+                    PublishDate = DateTime.Now,
+                    LastEditDate = DateTime.Now,
+                    Published = true,
+                    User = member
+                };
 
-            context.Posts.Add(post);
-            context.Posts.Add(post1);
+                context.Posts.Add(post);
+                
+                var comment = new Comment()
+                {
+                    Content = "Bad post " + i,
+                    PublishDate = DateTime.Now,
+                    User = member,
+                    Post = post
+                };
+                var comments = new List<Comment> { comment };
 
-            context.SaveChanges();
-
-            var comments = new List<Comment>();
-            var comment = new Comment()
-            {
-                Content = "Bad post",
-                PublishDate = DateTime.Now,
-                User = member,
-                Post = post
-            };
-            comments.Add(comment);
-
-            post.Comments = comments;
+                post.Comments = comments;
+            }
 
             // Saving our changes
             context.SaveChanges();
